@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Form</title>
+    <style>
+        /* Your CSS styles */
+    </style>
+</head>
+<body>
+    <h1>Employee Performance Form</h1>
+    <div class="container">
+        <form id="performanceForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="Name" placeholder="Enter your name" required>
+            <!-- Add other form fields as needed -->
+            <input type="submit" value="Submit">
+        </form>
+        <div id="responseMessage" class="response"></div>
+    </div>
+    <script>
+        document.getElementById('performanceForm').onsubmit = function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            var formData = {
+                Name: document.getElementById('name').value,
+                // Collect other form data as needed
+            };
+            fetch('https://script.google.com/macros/s/AKfycbzSUf03bsYKYzQMtTZRC25hupKIzF15VyvZqSe2SVOukeWkCgSMw0tsxZ13H_SQ6__F/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('responseMessage').innerText = data;
+            })
+            .catch(error => {
+                document.getElementById('responseMessage').innerText = 'Error: ' + error;
+            });
+        };
+    </script>
+</body>
+</html>
